@@ -28,5 +28,57 @@ d := 5         // 선언 대입문 :=, var생략, 타입생략
 
 ## chapter 06 - 연산자
 
+## chatper 07 - 함수
+```go
+func Add(a int, b int) int {
+	return a + b
+}
+```
 
+멀티 값을 리턴할 수 있고,  
+리턴할 변수 이름을 지정하면, return시 해당 변수값을 자동으로 리턴.  
+다음 두 함수 비교.
+```go
+package main
+
+import "fmt"
+
+func Divide(a, b int) (int, bool) {
+        if b == 0 {
+                return 0, false
+        }
+        return a / b, true
+}
+
+func main() {
+        c, success := Divide(9,3)
+        fmt.Println(c, success)
+        d, success := Divide(9,0)
+        fmt.Println(d, success)
+}
+```
+
+```go
+200~package main
+
+import "fmt"
+
+func Divide(a, b int) (result int, success bool) {
+        if b == 0 {
+                result = 0
+                success = false
+                return
+        }
+        result = a / b
+        success = true
+        return
+}
+
+func main() {
+        c, success := Divide(9,3)
+        fmt.Println(c, success)
+        d, success := Divide(9,0)
+        fmt.Println(d, success)
+}
+```
 
