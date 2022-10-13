@@ -17,7 +17,7 @@ GOOS=linux GOARCH=amd64 go build
 ```
 
 ## chapter 04 - 변수
-```c
+```go
 var a int = 3  // basic
 var b int      // 초기값 생략, 기본값 대체
 var c = 4      // 타입 생략, 우변 값의 타입으로 지정
@@ -88,7 +88,7 @@ func main() {
 `iota`
 ```go
 const (
-	Red		int = iota  // 0
+	Red	int = iota  // 0
 	Blue	int = iota  // 1
 	Green	int = iota  // 2
 )
