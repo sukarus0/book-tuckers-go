@@ -185,13 +185,12 @@ import (
 `go.sum` : 외부 저장소 패키지 버전 정보 담겨 있음  
 go.mod와 go.sum파일을 통해 외부 패키지와 모듈 내 패키지를 합쳐서 실행 파일을 만듬.  
 
-**Go 모듈은 `go mode init`명령을 통해 만들 수 있습니다.**
+**Go 모듈은 `go mod init`명령을 통해 만들 수 있습니다.**
 ```go
 go mod init [패키지명]
 ```
 
-(1) `go mod init [패키지명]` --> (2) `go.mod` 생성 --> (3) `go mod tidy` -->  
-(4) `go.sum` 생성  
+(1) `go mod init [패키지명]` --> (2) `go.mod` 생성 --> (3) `go mod tidy` --> (4) `go.sum` 생성  
 
 **go mod tidy 명령은 Go 모듈에 필요한 패키지를 찾아서 다운로드해주고**  
 **필요한 패키지 정보를 go.mod 파일과 go.sum 파일에 적어주게 됩니다.**  
@@ -224,13 +223,13 @@ This is Github expkg Sample
   2.00 ┤         ╰╯╰╯
 ```
 
-다운로드 받은 외부 패키지(asciigraph, expkg)는 `GOPATH/pak/mod`폴더에 저장.  
+다운로드 받은 외부 패키지(asciigraph, expkg)는 `GOPATH/pkg/mod`폴더에 저장.  
 보통 `GOPATH=${HOME}/go` 임. 
 
 ### 패키지 초기화
 패키지를 임포트하면 벌어지는 일  
 (1) 컴파일러는 패키지 내 전역 변수를 초기화  
-(2) 패키지에 init() 함수가 있다면 호출 *init()함수는 반드시 입력 매개변수가 없고 반환값도 없음*  
+(2) 패키지에 init() 함수가 있다면 호출 *\*init()함수는 반드시 입력 매개변수가 없고 반환값도 없음*  
 **만약 어떤 패키지의 초기화 함수인 init() 함수 기능만 사용하기를 원할 경우**  
 **밑줄을 이용해서 임포트**  
 
