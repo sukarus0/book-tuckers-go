@@ -234,3 +234,6 @@ This is Github expkg Sample
 **밑줄을 이용해서 임포트**  
 
 
+## chapter 17 - 숫자 맞추기 게임 만들기
+
+
