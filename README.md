@@ -109,3 +109,23 @@ fallthrough 키워드로 다음 case문 실행 가능.
 
 ## chatper 11 - for
 
+## chapter 12 - 배열
+```go
+# var 변수명 [요소개수]타입
+var t [5]float64
+```
+```go
+var t [5]float64 = [5]float64{24.0, 25.9, 27.8, 26.9, 26.2}
+days := [3]string{"monday", "tuseday", "wednesday"}
+x := [...]int{10, 20, 30}
+```
+
+`range` keyword로 배열 순회
+```go
+index := [...]int{10, 20, 30}
+
+for i, v := range index {
+	fmt.Println(i, v)
+}
+```
+
