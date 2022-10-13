@@ -100,3 +100,10 @@ if 초기문; 조건문 {
   문장
 }
 ```
+
+
+## chapter 10 - switch
+break 없음  
+fallthrough 키워드로 다음 case문 실행 가능.  
+
+
