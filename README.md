@@ -153,3 +153,85 @@ type run int32 // rune 타입과 int32는 이름만 다를 뿐 같은 타입입�
 
 *string type을 rune타입으로 변환해, 문자열 길이를 계산할 수 있다*
 
+## chatper 16 - 패키지
+`패키지` - Go 언어에서 코드를 묶는 가장 큰 단위  
+main 패키지 + 외부 패키지  
+
+- https://golang.org/pkg/
+- https://github.com/avelino/awesome-go
+
+### Pacakge 설치하기
+import로 패키지를 포함시키면,  
+go build를 통해서 빌드할 때 해당하는 패키지를 찾아서 포함한 다음  
+실행 파일을 생성  
+
+패키지를 찾는 세 가지 방법  
+(1) 기본 제공 패키지: Go 설치 경로  
+(2) 외부 저장소 패키지: 다운로드해서 GOPATH/pkg 디렉토리에 설치  
+(3) 현재 모듈 아래 위치한 패키지 (현재 디렉토리 아래 있는 패키지)  
+```go
+import (
+        "fmt" // (1) 기본 제공 패키지
+        "goproject/usepkg/custompkg" // (2) 현재 모듈 패키지
+
+        "github.com/guptarohit/asciigraph"  // (3) 외부 저장소 패키지
+        "github.com/tuckersGo/musthaveGo/ch16/expkg" // (3) 외부 저장소 패키지
+)
+```
+
+### Go 모듈
+**go build를 하려면 반드시 Go 모듈 루트 폴더에 go.mod 파일이 있어야 합니다.**
+`go.mod` : 모듈이름 + Go버전 + 필요한 외부패키지 명시되어 있음  
+`go.sum` : 외부 저장소 패키지 버전 정보 담겨 있음  
+go.mod와 go.sum파일을 통해 외부 패키지와 모듈 내 패키지를 합쳐서 실행 파일을 만듬.  
+
+**Go 모듈은 `go mode init`명령을 통해 만들 수 있습니다.**
+```go
+go mod init [패키지명]
+```
+
+(1) `go mod init [패키지명]` --> (2) `go.mod` 생성 --> (3) `go mod tidy` -->  
+(4) `go.sum` 생성  
+
+**go mod tidy 명령은 Go 모듈에 필요한 패키지를 찾아서 다운로드해주고**  
+**필요한 패키지 정보를 go.mod 파일과 go.sum 파일에 적어주게 됩니다.**  
+*go.sum에는 패키지 위조 여부를 검사하기 위한 체크섬 결과가 담겨 있습니다.*  
+
+<go.mod>
+```go
+module goproject/usepkg
+
+go 1.19
+
+require (
+        github.com/guptarohit/asciigraph v0.5.5
+        github.com/tuckersGo/musthaveGo/ch16/expkg v0.0.0-20210809125204-68bca0d80b54
+)
+```
+
+```go
+$ ./usepkg
+This is custom package!
+This is Github expkg Sample
+ 10.00 ┤        ╭╮
+  9.00 ┤   ╭╮   ││
+  8.00 ┤   ││ ╭╮││
+  7.00 ┤   │╰╮││││╭╮
+  6.00 ┤  ╭╯ │││││││ ╭
+  5.00 ┤ ╭╯  ╰╯╰╯│││╭╯
+  4.00 ┤╭╯       ││││
+  3.00 ┼╯        ││││
+  2.00 ┤         ╰╯╰╯
+```
+
+다운로드 받은 외부 패키지(asciigraph, expkg)는 `GOPATH/pak/mod`폴더에 저장.  
+보통 `GOPATH=${HOME}/go` 임. 
+
+### 패키지 초기화
+패키지를 임포트하면 벌어지는 일  
+(1) 컴파일러는 패키지 내 전역 변수를 초기화  
+(2) 패키지에 init() 함수가 있다면 호출 *init()함수는 반드시 입력 매개변수가 없고 반환값도 없음*  
+**만약 어떤 패키지의 초기화 함수인 init() 함수 기능만 사용하기를 원할 경우**  
+**밑줄을 이용해서 임포트**  
+
+
