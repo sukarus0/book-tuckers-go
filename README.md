@@ -131,3 +131,5 @@ for i, v := range index {
 
 ## chapter 13 - 구조체
 
+## chapter 14 - 포인터
+
