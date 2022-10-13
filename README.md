@@ -82,3 +82,15 @@ func main() {
 }
 ```
 
+## chatper 08 - 상수
+(Q) `rune`?
+
+`iota`
+```go
+const (
+	Red		int = iota  // 0
+	Blue	int = iota  // 1
+	Green	int = iota  // 2
+)
+```
+
