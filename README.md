@@ -229,7 +229,7 @@ This is Github expkg Sample
 ### 패키지 초기화
 패키지를 임포트하면 벌어지는 일  
 (1) 컴파일러는 패키지 내 전역 변수를 초기화  
-(2) 패키지에 init() 함수가 있다면 호출 *\*init()함수는 반드시 입력 매개변수가 없고 반환값도 없음*  
+(2) 패키지에 init() 함수가 있다면 호출 *init()함수는 반드시 입력 매개변수가 없고 반환값도 없음*  
 **만약 어떤 패키지의 초기화 함수인 init() 함수 기능만 사용하기를 원할 경우**  
 **밑줄을 이용해서 임포트**  
 
@@ -237,3 +237,66 @@ This is Github expkg Sample
 ## chapter 17 - 숫자 맞추기 게임 만들기
 
 
+
+## chapter 28 - 테스트와 벤치마크
+```go
+1. 파일명이 _test.go로 끝나야 합니다.
+2. testing 패키지를 임포트해야 합니다.
+3. 테스트 코드는 func TestXxxx(t *testing.T) 형태이어야 합니다.
+```
+
+예제에서 `go mod init <pkg_name>`, `go mod tidy`를 수행하라는 말이 없지만, 해야함.  
+main.go 작성 후, main_test.go 작성하고, go mod init 28, go mod tidy 수행.  
+그리고 `go test` 명령어 수행.
+```go
+$ vi main.go
+$ vi main_test.go
+$ go mod init 28
+$ go mod tidy
+$ go test
+PASS
+ok      28      0.004s
+
+$ go test
+--- FAIL: TestSquare2 (0.00s)
+    main_test.go:15: square(3) should be 9 but square(9) returns 81
+FAIL
+exit status 1
+FAIL    28      0.007s
+```
+
+### 일부 테스트만 수행하기
+```go
+go test -run 테스트명
+```
+
+### 테스트를 톱는 외부 패키지
+`stretchr/testify`
+```go
+$ go get github.com/stretchr/testify
+```
+`stretchr/testify/assert` 패키지 제공 함수  
+Equal(), Greater(), Len(), NotNilf(), NotEqualf()  
+
+`stretchr/testify/mock` 패키지 - 테스트용 목업  
+`stretchr/testify/suite` 패키지 - setUp, tearDown 같은 기능  
+
+### 테스트 주도 개발
+`블랙박스 테스트`, `화이트박스 테스트`  
+화이트박스 테스트 문제점  
+(1) 빈약한 테스트 케이스  
+(2) 테스트 통과를 목적으로 하는 형식적인 테스트 코드  
+
+`테스트 주도 개발` - 테스트 코드를 먼저 만들어서 실패시키고, 이를 성공시키는 과정 반복  
+
+### 벤치마크
+```go
+1. 파일명이 _test.go로 끝나야 합니다.
+2. testing 패키지를 임포트해야 합니다.
+3. 벤치마크 코드는 func BenchmarkXxxx(b *testing.B) 형태이어야 합니다.
+```
+
+실행은  
+```go
+$ go test -bench .
+```
