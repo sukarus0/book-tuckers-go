@@ -271,7 +271,7 @@ go test -run 테스트명
 ```
 
 ### 테스트를 톱는 외부 패키지
-`stretchr/testify`
+`github.com/stretchr/testify`
 ```go
 $ go get github.com/stretchr/testify
 ```
